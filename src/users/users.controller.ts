@@ -16,12 +16,12 @@ export class UsersController {
 
   @Get()
   gets(@Param() params) {
-    return this.service.FullUsers(params.id);
+    return this.service.getUsers(params.id);
   }
 
   @Get(':id')
-  get(@Param() params) {
-    return this.service.getUsers(params.id);
+  get(@Param() params, @Body() user: User) {
+    return this.service.getUsersId(params.id, user);
   }
 
   @Post()
