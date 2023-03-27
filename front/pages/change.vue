@@ -1,4 +1,3 @@
-<!-- Please remove this file from your project -->
 <template>
   <div class="flex flex-col">
     <NavBars />
@@ -16,19 +15,19 @@
       >
       <input
         id="input"
-        v-model="fullname"
+        v-model="email"
         class="border-solid border-2 border-sky-200 outline-none p-1 mt-5"
         required
-        type="text"
-        placeholder="Fullname"
+        type="email"
+        placeholder="Email"
       >
       <input
         id="input"
-        v-model="lastname"
+        v-model="name"
         class="border-solid border-2 border-sky-200 outline-none p-1 mt-5"
         required
         type="text"
-        placeholder="Lastname"
+        placeholder="Name"
       >
       <input
         id="input"
@@ -38,7 +37,7 @@
         type="password"
         placeholder="Password"
       >
-      <button style="padding: 5px;margin-top: 20px;background-color: grey;color:white;" @click="submit(id,fullname,lastname,password)">
+      <button style="padding: 5px;margin-top: 20px;background-color: grey;color:white;" @click="submit(id,email,name,password)">
         Change User
       </button>
     </div>
@@ -55,14 +54,14 @@ export default {
     return {
       users: [],
       id: '',
-      fullname: '',
-      lastname: '',
+      email: '',
+      name: '',
       password: ''
     }
   },
   methods: {
-    async submit (id, fullname, lastname, password) {
-      const update = await axios.put(`http://localhost:3005/users/${this.id}`, { id, fullname, lastname, password })
+    async submit (id, email, name, password) {
+      const update = await axios.put(`http://localhost:3005/users/${id}`, { id, email, name, password })
       this.users = update
       if (update.message !== '') {
         this.$router.push('/users')

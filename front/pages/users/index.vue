@@ -1,42 +1,33 @@
 <template>
   <div>
     <NavBars />
-    <div>
-      <h1 class="mt-7 text-3xl font-bold text-sky-600 text-center">
-        Users
-      </h1>
-      <div class="mt-7 w-full sm:grid-cols-1 md:grid-cols-3 lg:grid grid-cols-3">
-        <div v-for="user in users" :key="user.id" class="w-80 h-52 bg-sky-700 shadow-lg shadow-cyan-500/50  mx-auto mt-2">
-          <div class="flex flex-col h-full items-center justify-center text-white font-bold">
-            <h1>{{ user.fullname }}</h1>
-            <h1>{{ user.lastname }}</h1>
-            <h1>{{ user.password }}</h1>
-            <h1 v-if="user">
-              ID : {{ user.id }}
-            </h1>
-            <button v-if="!showProfileButton" class="text-black font-bold" @click="openUserProfile(user.id)">
-              See your Profile
-            </button>
-          </div>
-        </div>
-      </div>
+    <div class="mt-7 w-full sm:grid-cols-1 md:grid-cols-3 lg:grid grid-cols-3">
+      <SeePost
+        v-for="user in users"
+        :id="user.id"
+        :key="user.id"
+        :email="user.email"
+        :name="user.name"
+        :password="user.password"
+        :comments="user.comments"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
 import NavBars from '@/components/NavBars'
-
+import SeePost from '@/components/Post'
 export default {
-  components: { NavBars },
+  components: { NavBars, SeePost },
   data () {
     return {
-      users: []
+      users: [],
+      content: ''
     }
   },
   async mounted () {
-    const response = await axios.get('http://localhost:3005/users')
+    const response = await this.$axios.get('/users')
     this.users = response.data
   },
   methods: {
@@ -45,6 +36,9 @@ export default {
       if (user) {
         user = !user
       }
+    },
+    async addComment (id, name) {
+      return await this.$axios.post('/comments', { name, postId: id })
     }
   }
 }

@@ -26,7 +26,7 @@
       <div class="hidden z-10 lg:block">
         <ul class="flex space-x-5 text-sm  text-white font-sans" style="font-family: 'Montserrat', sans-serif !important;">
           <li>
-            <NuxtLink to="/">
+            <NuxtLink to="/home">
               Home
             </NuxtLink>
           </li>
@@ -81,9 +81,9 @@
           </button>
         </div>
 
-        <ul class="divide-y font-sans z-10">
+        <ul class="divide-y font-sans z-10 text-black font-bold">
           <li>
-            <NuxtLink to="/" class="my-4 inline-block" @click="isOpen = false">
+            <NuxtLink to="/home" class="my-4 inline-block" @click="isOpen = false">
               Home
             </NuxtLink>
           </li>
@@ -98,28 +98,27 @@
             </NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/three" class="my-4 inline-block" @click="isOpen = false">
+            <NuxtLink to="/change" class="my-4 inline-block" @click="isOpen = false">
               Change My Account
             </NuxtLink>
           </li>
           <li>
-            <button class="text-sm rounded-3xl h-8 w-28 text-white bg-mycolor">
+            <NuxtLink to="/register" class="text-sm rounded-3xl px-10 py-2 text-white bg-mycolor mt-5">
               Sign In
-            </button>
+            </NuxtLink>
           </li>
         </ul>
       </aside>
-      <div class="z-10 hidden md:hidden xl:block">
-        <button class="text-sm rounded-3xl h-8 w-28 text-white bg-mycolor">
+      <div class="hidden md:hidden xl:block">
+        <NuxtLink to="/register" class="text-sm rounded-3xl px-10 py-2 text-white bg-mycolor">
           Sign In
-        </button>
+        </NuxtLink>
       </div>
     </div>
   </nav>
 </template>
 
 <script>
-
 export default {
   name: 'NavBarVue',
   data () {

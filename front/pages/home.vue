@@ -8,19 +8,19 @@
       </h1>
       <input
         id="input"
-        v-model="firstname"
+        v-model="email"
         class="border-solid border-2 border-sky-200 outline-none p-1"
         required
-        type="text"
-        placeholder="Fullname"
+        type="email"
+        placeholder="Email"
       >
       <input
         id="input"
-        v-model="lastname"
+        v-model="name"
         class="border-solid border-2 border-sky-200 outline-none p-1 mt-5"
         required
         type="text"
-        placeholder="Lastname"
+        placeholder="Name"
       >
       <input
         id="input"
@@ -30,7 +30,7 @@
         type="password"
         placeholder="Password"
       >
-      <button style="padding: 5px;margin-top: 20px;background-color: grey;color:white;" @click="submit">
+      <button style="padding: 5px;margin-top: 20px;background-color: grey;color:white;" @click="submit(email,name,password)">
         Add User
       </button>
     </div>
@@ -38,21 +38,21 @@
 </template>
 
 <script>
-import axios from 'axios'
 import NavBars from '../components/NavBars.vue'
 export default {
   name: 'AddPost',
   components: { NavBars },
+  middleware: ['auth'],
   data () {
     return {
-      firstname: '',
-      lastname: '',
+      email: '',
+      name: '',
       password: ''
     }
   },
   methods: {
-    async submit () {
-      const post = await axios.post('http://localhost:3005/users', { fullname: this.firstname, lastname: this.lastname, password: this.password })
+    async submit (email, name, password) {
+      const post = await this.$axios.post('/users', { email, name, password })
       if (post.message !== '') {
         this.$router.push('/users')
       }

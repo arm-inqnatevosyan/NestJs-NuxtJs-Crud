@@ -9,20 +9,22 @@ export class UsersService {
     @InjectRepository(User) private usersRepository: Repository<User>,
   ) {}
   async getUsers(user: User): Promise<User[]> {
-    return await this.usersRepository.find();
+    return await this.usersRepository.find({ relations: ['comments'] });
   }
   async getUsersId(_id: number, user: User): Promise<User[]> {
     return await this.usersRepository.find({
-      select: ['fullname', 'lastname', 'password'],
+      select: ['email', 'name', 'password'],
       where: [{ id: _id }],
     });
   }
+
   async createUser(userDetails: User) {
     const newUser = this.usersRepository.create({
       ...userDetails,
     });
     return await this.usersRepository.save(newUser);
   }
+
   async updateUser(id: number, UserDetails: User) {
     return await this.usersRepository.update({ id }, { ...UserDetails });
   }
